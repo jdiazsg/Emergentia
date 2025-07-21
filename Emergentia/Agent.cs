@@ -1,4 +1,4 @@
-﻿namespace Emergentia;
+namespace Emergentia;
 
 public class Agent
 {

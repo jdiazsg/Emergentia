@@ -27,7 +27,7 @@ public class Agent
         }
         else if (neighbors >= 3)
         {
-            // Try to escape to less crowded space
+            // Select the least crowded neighbouring cell
             GetLeastCrowdedMove(out newX, out newY, width, height, allAgents);
         }
         // else: stay put

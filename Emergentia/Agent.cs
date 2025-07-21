@@ -58,7 +58,8 @@ public class Agent
 
     private void GetLeastCrowdedMove(out int newX, out int newY, int width, int height, List<Agent> allAgents)
     {
-        int bestX = X, bestY = Y, minNeighbors = int.MaxValue;
+        int currentNeighbors = CountNeighbors(allAgents);
+        int bestX = X, bestY = Y, minNeighbors = currentNeighbors;
 
         for (int dx = -1; dx <= 1; dx++)
         {

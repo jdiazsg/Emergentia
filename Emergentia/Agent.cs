@@ -15,6 +15,11 @@ public class Agent
 
     public void Update(char[,] grid, int width, int height, List<Agent> allAgents)
     {
+        (X, Y) = ComputeMove(grid, width, height, allAgents);
+    }
+
+    public (int, int) ComputeMove(char[,] grid, int width, int height, List<Agent> allAgents)
+    {
         int neighbors = CountNeighbors(allAgents);
 
         int newX = X;
@@ -31,31 +36,8 @@ public class Agent
             GetLeastCrowdedMove(out newX, out newY, width, height, allAgents);
         }
         // else: stay put
-
+        
         // Move if new space is free
-        if (grid[newX, newY] == '\0')
-        {
-            X = newX;
-            Y = newY;
-        }
-    }
-
-    public (int, int) ComputeMove(char[,] grid, int width, int height, List<Agent> allAgents)
-    {
-        int neighbors = CountNeighbors(allAgents);
-
-        int newX = X;
-        int newY = Y;
-
-        if (neighbors == 0)
-        {
-            GetRandomMove(out newX, out newY, width, height);
-        }
-        else if (neighbors >= 3)
-        {
-            GetLeastCrowdedMove(out newX, out newY, width, height, allAgents);
-        }
-
         if (grid[newX, newY] != '\0')
         {
             newX = X;

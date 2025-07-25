@@ -2,28 +2,28 @@ namespace Emergentia;
 
 public class World
 {
-    public int Width { get; }
-    public int Height { get; }
+    private int Width { get; }
+    private int Height { get; }
 
     private readonly char[,] _grid;
-    private readonly List<Agent> _agents = new();
+    private readonly List<Agent> _agents = [];
     private readonly Random _rand = new();
 
-    private readonly int _agentCount;
     private readonly char _agentChar;
 
     public World(int width, int height, int agentCount, char agentChar)
     {
         Width = width;
         Height = height;
-        _agentCount = agentCount;
         _agentChar = agentChar;
         _grid = new char[width, height];
+        
+        InitAgents(agentCount);
     }
 
-    public void InitAgents()
+    private void InitAgents(int agentCount)
     {
-        for (int i = 0; i < _agentCount; i++)
+        for (int i = 0; i < agentCount; i++)
         {
             int x, y;
             do
@@ -51,13 +51,13 @@ public class World
         }
     }
 
-    public void Draw()
+    public static void Draw(World world)
     {
         Console.Clear();
-        for (int y = 0; y < Height; y++)
+        for (int y = 0; y < world.Height; y++)
         {
-            for (int x = 0; x < Width; x++)
-                Console.Write(_grid[x, y] == '\0' ? '.' : _grid[x, y]);
+            for (int x = 0; x < world.Width; x++)
+                Console.Write(world._grid[x, y] == '\0' ? '.' : world._grid[x, y]);
             Console.WriteLine();
         }
     }

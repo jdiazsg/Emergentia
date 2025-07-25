@@ -13,12 +13,12 @@ public class Agent
         Y = y;
     }
 
-    public void Update(char[,] grid, int width, int height, List<Agent> allAgents)
+    public void Update(Grid grid, int width, int height, List<Agent> allAgents)
     {
         (X, Y) = ComputeMove(grid, width, height, allAgents);
     }
 
-    public (int, int) ComputeMove(char[,] grid, int width, int height, List<Agent> allAgents)
+    public (int, int) ComputeMove(Grid grid, int width, int height, List<Agent> allAgents)
     {
         int neighbors = CountNeighbors(allAgents);
 
@@ -38,7 +38,7 @@ public class Agent
         // else: stay put
         
         // Move if new space is free
-        if (grid[newX, newY] != '\0')
+        if (grid.IsOccupied(newX, newY))
         {
             newX = X;
             newY = Y;

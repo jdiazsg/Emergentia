@@ -5,7 +5,7 @@ public class World
     private int Width { get; }
     private int Height { get; }
 
-    private readonly char[,] _grid;
+    private readonly Grid _grid;
     private readonly List<Agent> _agents = [];
     private readonly Random _rand = new();
 
@@ -16,7 +16,7 @@ public class World
         Width = width;
         Height = height;
         _agentChar = agentChar;
-        _grid = new char[width, height];
+        _grid = new Grid(width, height);
         
         InitAgents(agentCount);
     }
@@ -30,24 +30,22 @@ public class World
             {
                 x = _rand.Next(Width);
                 y = _rand.Next(Height);
-            } while (_grid[x, y] != '\0');
+            } while (_grid.IsOccupied(x, y));
 
             var agent = new Agent(x, y);
             _agents.Add(agent);
-            _grid[x, y] = _agentChar;
+            _grid.SetOccupied(x, y, true);
         }
     }
 
     public void Update()
     {
-        for (int x = 0; x < Width; x++)
-        for (int y = 0; y < Height; y++)
-            _grid[x, y] = '\0';
+        _grid.Clear();
 
         foreach (var agent in _agents)
         {
             agent.Update(_grid, Width, Height, _agents);
-            _grid[agent.X, agent.Y] = _agentChar;
+            _grid.SetOccupied(agent.X, agent.Y, true);
         }
     }
 
@@ -57,7 +55,7 @@ public class World
         for (int y = 0; y < world.Height; y++)
         {
             for (int x = 0; x < world.Width; x++)
-                Console.Write(world._grid[x, y] == '\0' ? '.' : world._grid[x, y]);
+                Console.Write(world._grid.IsOccupied(x, y) ? world._agentChar : '.');
             Console.WriteLine();
         }
     }
